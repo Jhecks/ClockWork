@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Часовой Сердечник — Кольца</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #FFD700;
+    }
+    .ring {
+      margin: 20px auto;
+      max-width: 400px;
+      border: 2px solid #888;
+      padding: 10px;
+      border-radius: 12px;
+      background: #222;
+    }
+    select {
+      font-size: 16px;
+      padding: 6px;
+      background: #333;
+      color: #FFD700;
+      border: none;
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Часовой Сердечник</h1>
+  <p>Поверни каждое кольцо, чтобы услышать ритм сердца...</p>
+
+  <div class="ring">
+    <h3>Кольцо I</h3>
+    <select id="ring1">
+      <option>A</option>
+      <option>3</option>
+      <option>F</option>
+      <option>6</option>
+      <option>K</option>
+      <option>9</option>
+      <option>O</option>
+      <option>13</option>
+      <option>T</option>
+      <option>17</option>
+      <option>Y</option>
+      <option>19</option>
+    </select>
+  </div>
+
+  <div class="ring">
+    <h3>Кольцо II</h3>
+    <select id="ring2">
+      <option>1</option>
+      <option>2</option>
+      <option>4</option>
+      <option>8</option>
+      <option>16</option>
+      <option>32</option>
+      <option>64</option>
+      <option>128</option>
+      <option>256</option>
+      <option>512</option>
+      <option>1024</option>
+      <option>∞</option>
+    </select>
+  </div>
+
+  <div class="ring">
+    <h3>Кольцо III</h3>
+    <select id="ring3">
+      <option>2</option>
+      <option>3</option>
+      <option>5</option>
+      <option>7</option>
+      <option>11</option>
+      <option>13</option>
+      <option>17</option>
+      <option>19</option>
+      <option>23</option>
+      <option>29</option>
+      <option>31</option>
+      <option>37</option>
+    </select>
+  </div>
+
+  <div class="ring">
+    <h3>Кольцо IV</h3>
+    <select id="ring4">
+      <option>1</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>5</option>
+      <option>8</option>
+      <option>13</option>
+      <option>21</option>
+      <option>36</option>
+      <option>55</option>
+      <option>89</option>
+      <option>150</option>
+    </select>
+  </div>
+
+  <div class="ring">
+    <h3>Кольцо V</h3>
+    <select id="ring5">
+      <option>A</option>
+      <option>C</option>
+      <option>F</option>
+      <option>J</option>
+      <option>O</option>
+      <option>U</option>
+      <option>B</option>
+      <option>H</option>
+      <option>M</option>
+      <option>R</option>
+      <option>X</option>
+      <option>Z</option>
+    </select>
+  </div>
+
+  <button onclick="checkRiddle()">Проверить ритм</button>
+  <div class="result" id="result"></div>
+
+  <script>
+    function getNumeric(value) {
+      if (value.includes('∞')) return Infinity;
+      const match = value.match(/\((\d+)\)/);
+      if (match) return parseInt(match[1]);
+      const num = parseInt(value);
+      if (!isNaN(num)) return num;
+  
+      // Если значение — буква, вычисляем её порядковый номер в алфавите
+      if (/^[A-Za-z]$/.test(value)) {
+        return value.toUpperCase().charCodeAt(0) - 64;
+      }
+  
+      return 0;
+    }
+
+    function checkRiddle() {
+      const r1 = getNumeric(document.getElementById('ring1').value);
+      const r2 = getNumeric(document.getElementById('ring2').value);
+      const r3 = getNumeric(document.getElementById('ring3').value);
+      const r4 = getNumeric(document.getElementById('ring4').value);
+      const r5 = getNumeric(document.getElementById('ring5').value);
+
+      const values = [r1, r2, r3, r4, r5];
+      const allDivBy3 = values.every(v => v !== 0 && v % 6 === 0);
+
+      const result = document.getElementById('result');
+      if (allDivBy3) {
+        result.textContent = 'Сердце бьётся: ТУМ-ТУМ...';
+      } else {
+        result.textContent = 'Глухо. Сердце молчит...';
+      }
+    }
+  </script>
+</body>
+</html>
