@@ -150,16 +150,17 @@
       return 0;
     }
 
+    
     function checkRiddle() {
       const r1 = getNumeric(document.getElementById('ring1').value);
       const r2 = getNumeric(document.getElementById('ring2').value);
       const r3 = getNumeric(document.getElementById('ring3').value);
       const r4 = getNumeric(document.getElementById('ring4').value);
       const r5 = getNumeric(document.getElementById('ring5').value);
-
+  
       const values = [r1, r2, r3, r4, r5];
-      const allDivBy3 = values.every(v => v !== 0 && v % 6 === 0);
-
+      const allDivBy3 = values.every(v => v !== 0 && (v % 6 === 0 || v === Infinity));
+  
       const result = document.getElementById('result');
       if (allDivBy3) {
         result.textContent = 'Сердце бьётся: ТУМ-ТУМ...';
@@ -167,6 +168,7 @@
         result.textContent = 'Глухо. Сердце молчит...';
       }
     }
+    </script>
   </script>
 </body>
 </html>
